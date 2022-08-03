@@ -5,6 +5,7 @@ use actix_web_actors::ws;
 use uuid::Uuid;
 use std::collections::{HashMap};
 use actix_web::web::Bytes;
+use actix_web::web::Data;
 
 #[derive(Message)]
 #[rtype(result = "()")]
@@ -139,7 +140,7 @@ impl StreamHandler<Result<ws::Message, ws::ProtocolError>> for Connection {
             Ok(ws::Message::Text(text)) => {
                 self.addr.do_send(SendText {
                     id: self.id,
-                    text,
+                    text: text.to_string(),
                 })
             },
             Ok(ws::Message::Binary(bin)) => {
@@ -188,10 +189,11 @@ async fn main() -> std::io::Result<()> {
 
     HttpServer::new(move || {
         App::new()
-            .data(session.clone())
+            .app_data(Data::new(session.clone()))
             .route("/", web::get().to(index))
     })
-    .bind("127.0.0.1:8080")?
+    .bind(("127.0.0.1", 9999))?
     .run()
     .await
 }
+

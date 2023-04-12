@@ -5,6 +5,6 @@ edition = "2018"
 
 [dependencies]
 actix = "0.13.0"
-actix-web = "4.1.0"
-actix-web-actors = "4.1.0"
+actix-web = "4.3.1"
+actix-web-actors = "4.2.0"
 uuid = { version = "1.1.2", features = ["v4"] }

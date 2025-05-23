@@ -1,7 +1,5 @@
 # Communication Server
-A simple interactive server based on Web Socket.
-You can send/receive charactor and binary.
+Communication Server is a websocket based interactive server.(e.g. chat, message apps)
+You can send/receive charactors and binary.
 
-## dependencies
-- actix
-- uuid 
+Build by Rust and Actix.

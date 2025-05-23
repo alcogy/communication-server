@@ -186,7 +186,8 @@ async fn index(req: HttpRequest, stream: web::Payload, srv: web::Data<Addr<Sessi
 async fn main() -> std::io::Result<()> {
 
     let session = Session::new().start();
-
+    let port = 9999;
+    println!("Server is running! at {}", port);
     HttpServer::new(move || {
         App::new()
             .app_data(Data::new(session.clone()))

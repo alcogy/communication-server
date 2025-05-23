@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Communication Server Example</title>
+</head>
+<body>
+  <input type="text" id="text">
+  <button onclick="sendMessage()">Send</button>
+  <div id="messages"></div>
+  <script>
+    const ws = new WebSocket("ws://localhost:9999");
+    ws.onopen = (event) => {
+      console.log('onopen!\n', event);
+    }
+    ws.onmessage = (event) => {
+      console.log('onmessage!\n', event.data);
+      addMessages(event.data);
+    }
+    
+    function sendMessage() {
+      const text = document.getElementById("text");
+      ws.send(text.value);
+      addMessages(text.value);
+      text.value = "";
+    }
+
+    function addMessages(text) {
+      const p = document.createElement('p');
+      p.innerText = text;
+      const messages = document.getElementById("messages");
+      messages.appendChild(p);
+    }
+  </script>
+</body>
+</html>
